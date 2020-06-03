@@ -1,28 +1,29 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <!-- 对应的组件视图 -->
+    <router-view/>
+    <!-- 组件 -->
+    <FooterGuide v-show="$route.meta.isShowFooter==true"/>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// 引入FooterGuide组件
+import FooterGuide from './components/FooterGuide/FooterGuide'
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    FooterGuide
+  },
+  mounted () {
+    // 调用对应的action，获取地址信息---在vuex中存储
+    this.$store.dispatch('getAddress')
+    // 界面加载完毕后，调用自动登录的方法---在actions中
+    this.$store.dispatch('autoLogin')
+    // this.$store.dispatch('getCategorys')
+    // this.$store.dispatch('getShops')
   }
 }
 </script>
+<style lang="stylus" rel="stylesheet/stylus">
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
